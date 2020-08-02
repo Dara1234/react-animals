@@ -11,8 +11,6 @@ const MainContainer = styled.nav`
   justify-content: space-between;
 `;
 
-const Title = styled.div``;
-
 function Header(props) {
   return (
     <MainContainer>

@@ -14,8 +14,9 @@ const Image = styled.img`
 
 function RandomDogImage(props) {
     const [dogImageUrl, setDogImageUrl] = React.useState(null);
-
+    
     React.useEffect(() => {
+      if (props.timer <= 0 || dogImageUrl == null){
         fetch("https://dog.ceo/api/breeds/image/random")
           .then((response) => {
             return response.json();
@@ -24,7 +25,8 @@ function RandomDogImage(props) {
             setDogImageUrl(data.message);
             console.log(data.message);
           });
-      }, []);
+      }
+    }, [props.timer, dogImageUrl]);
 
     if (dogImageUrl == null) return <div> Loading </div>;
 

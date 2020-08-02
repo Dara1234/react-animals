@@ -16,15 +16,31 @@ const MainContainer = styled.div`
   display: flex;
 `;
 
+const Timer = styled.div``;
+
 function App() {
+  const [timer, setTimer] = React.useState(30);
+
+  React.useEffect(() => {
+    if (timer > 0) {
+      setTimeout(() => {
+        setTimer(timer -1);
+      console.log(timer);
+      }, 1000);      
+    }
+    else {setTimer(30);
+      }
+    }, [timer]);
+
   return (
     <MainContainer>
       <Header />
+      <Timer> Counter {timer} seconds</Timer>
       <Router>
-        <HomePage path="/" />
-        <RandomCatImage path="/randomCat" />
-        <RandomDogImage path="/randomDog" />
-        <RandomCatFact path="/catFacts" />
+        <HomePage path="/" timer={timer} />
+        <RandomCatImage path="/randomCat" timer={timer} />
+        <RandomDogImage path="/randomDog" timer={timer} />
+        <RandomCatFact path="/catFacts" timer={timer} />
       </Router>
     </MainContainer>
   );

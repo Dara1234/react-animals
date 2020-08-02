@@ -8,27 +8,27 @@ const MainContainer = styled.div`
 
 //https://alexwohlbruck.github.io/cat-facts/docs/
 
-function RandomCatFact() {
-  const [catTextUrl, setCatTextUrl] = React.useState(null);
+function RandomCatFact(props) {
+  const [catText, setCatText] = React.useState(null);
 
   React.useEffect(() => {
-    fetch('https://cat-fact.herokuapp.com/facts')
-    .then((response) => {
-      return response.json()
-    })
-    .then((data) => {
-      const facts = data.all;
-      const randomFact = facts[Math.floor(Math.random() * facts.length)].text;
-      setCatTextUrl(randomFact);
-    });
-}, [])
+  if (props.timer <= 0 || catText == null){
+    fetch("https://cat-fact.herokuapp.com/facts")
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        const facts = data.all;
+        setCatText(facts[Math.floor(Math.random() * facts.length)].text);
+      });
+  }
+}, [props.timer, catText]);
 
-
-  if (catTextUrl == null) return <div> Loading </div>;
+  if (catText == null) return <div> Loading </div>;
 
   return (
     <MainContainer>
-      <h1>{catTextUrl}</h1>
+      <h1>{catText}</h1>
     </MainContainer>
   )
 }
